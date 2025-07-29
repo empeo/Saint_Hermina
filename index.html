@@ -89,13 +89,15 @@
       align-items: center;
       justify-content: center;
       animation: fade-in-up 1s ease-out;
+      overflow: hidden;
     }
 
-    .monastery-logo::before {
-      content: '✠';
-      font-size: 80px;
-      color: #8b4513;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    .monastery-logo img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: sepia(10%) brightness(1.1) contrast(1.1);
     }
 
     .monastery-title {
@@ -261,8 +263,12 @@
         height: 140px;
       }
       
-      .monastery-logo::before {
-        font-size: 60px;
+      .monastery-logo img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        filter: sepia(10%) brightness(1.1) contrast(1.1);
       }
       
       .divine-section {
@@ -302,7 +308,9 @@
   
   <header>
     <div class="sacred-pattern"></div>
-    <div class="monastery-logo"></div>
+    <div class="monastery-logo">
+      <img src="anba-hermina.jpg" alt="القديس الأنبا هيرمينا السائح" />
+    </div>
     <h1 class="monastery-title">دير الأنبا هيرمينا العامر</h1>
     <p class="monastery-subtitle">أسيوط - مصر</p>
     <p class="blessed-message">"اطلبوا أولاً ملكوت الله وبره وهذه كلها تُزاد لكم"</p>
@@ -310,7 +318,7 @@
 
   <div class="divine-section">
     <div class="quality-badges">
-      <span class="badge">✨ جودة مباركة</span>
+      <span class="badge">✨ جودة عالية</span>
       <span class="badge">🎯 أسعار عادلة</span>
       <span class="badge">🚚 توصيل أمين</span>
     </div>
@@ -328,7 +336,7 @@
 
     <div class="sacred-map">
       <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.418515383244!2d31.34169627614909!3d27.206007047423597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x144573dbcc0f37c1%3A0x1df4dc6815f67d08!2z2K_ZitixINin2YTYp9mG2KjYpyDZh9mK2LHZhdmK2YbYpyDYp9iz2YrZiNi3!5e0!3m2!1sen!2seg!4v1753782143367!5m2!1sen!2seg"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.418515383244!2d31.34169627614909!3d27.206007047423597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x144573dbcc0f37c1%3A0x1df4dc6815f67d08!2z2K/ZitixINin2YTYp9mG2KjYpyDZh9mK2LHZhdmK2YbYpyDYp9iz2YrZiNi3!5e0!3m2!1sen!2seg!4v1753782143367!5m2!1sen!2seg"
         allowfullscreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
