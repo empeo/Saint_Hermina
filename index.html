@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دير الأنبا هيرمينا العامر - أسيوط</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #f8f6f0 0%, #e8e2d5 100%);
+      color: #4a4037;
+      overflow-x: hidden;
+    }
+
+    .floating-cross {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: rgba(139, 69, 19, 0.3);
+      z-index: 1;
+      animation: gentle-float 6s ease-in-out infinite;
+    }
+
+    @keyframes gentle-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .sacred-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(45deg, transparent 30%, rgba(139, 69, 19, 0.05) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #cd853f 100%);
+      color: white;
+      box-shadow: 0 8px 32px rgba(139, 69, 19, 0.3);
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      animation: gentle-float 8s ease-in-out infinite;
+    }
+
+    .monastery-logo {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      border: 6px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+      background: linear-gradient(45deg, #f4f4f4, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fade-in-up 1s ease-out;
+    }
+
+    .monastery-logo::before {
+      content: '✠';
+      font-size: 80px;
+      color: #8b4513;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .monastery-title {
+      font-family: 'Amiri', serif;
+      font-size: 3.2em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      animation: fade-in-up 1s ease-out 0.2s both;
+    }
+
+    .monastery-subtitle {
+      font-size: 1.3em;
+      font-weight: 300;
+      margin-bottom: 10px;
+      opacity: 0.95;
+      animation: fade-in-up 1s ease-out 0.4s both;
+    }
+
+    .blessed-message {
+      font-family: 'Amiri', serif;
+      font-size: 1.1em;
+      font-style: italic;
+      opacity: 0.9;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+      animation: fade-in-up 1s ease-out 0.6s both;
+    }
+
+    .divine-section {
+      background: rgba(255, 255, 255, 0.8);
+      margin: 40px 20px;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 15px 35px rgba(139, 69, 19, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(139, 69, 19, 0.1);
+      animation: fade-in-up 1s ease-out 0.8s both;
+    }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 35px 0;
+      flex-wrap: wrap;
+    }
+
+    .sacred-button {
+      padding: 18px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sacred-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    .sacred-button:hover::before {
+      left: 100%;
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4);
+    }
+
+    .telegram-btn {
+      background: linear-gradient(135deg, #0088cc, #005999);
+      color: white;
+    }
+
+    .telegram-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 136, 204, 0.4);
+    }
+
+    .sacred-map {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(139, 69, 19, 0.2);
+      border: 3px solid rgba(139, 69, 19, 0.1);
+      animation: fade-in-up 1s ease-out 1s both;
+    }
+
+    iframe {
+      width: 100%;
+      height: 450px;
+      border: none;
+      filter: sepia(10%) contrast(1.1);
+    }
+
+    .blessing-footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(160, 82, 45, 0.05));
+      margin-top: 40px;
+    }
+
+    .blessing-text {
+      font-family: 'Amiri', serif;
+      font-size: 1.2em;
+      color: #8b4513;
+      font-style: italic;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .quality-badges {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: rgba(139, 69, 19, 0.1);
+      padding: 12px 20px;
+      border-radius: 25px;
+      font-size: 0.95em;
+      font-weight: 600;
+      color: #8b4513;
+      border: 2px solid rgba(139, 69, 19, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      background: rgba(139, 69, 19, 0.15);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .monastery-title {
+        font-size: 2.5em;
+      }
+      
+      .monastery-logo {
+        width: 140px;
+        height: 140px;
+      }
+      
+      .monastery-logo::before {
+        font-size: 60px;
+      }
+      
+      .divine-section {
+        margin: 20px 10px;
+        padding: 25px;
+      }
+      
+      .contact-buttons {
+        gap: 15px;
+      }
+      
+      .sacred-button {
+        padding: 15px 25px;
+        font-size: 1em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .monastery-title {
+        font-size: 2em;
+      }
+      
+      .quality-badges {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .contact-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-cross">✠</div>
+  
+  <header>
+    <div class="sacred-pattern"></div>
+    <div class="monastery-logo"></div>
+    <h1 class="monastery-title">دير الأنبا هيرمينا العامر</h1>
+    <p class="monastery-subtitle">أسيوط - مصر</p>
+    <p class="blessed-message">"اطلبوا أولاً ملكوت الله وبره وهذه كلها تُزاد لكم"</p>
+  </header>
+
+  <div class="divine-section">
+    <div class="quality-badges">
+      <span class="badge">✨ جودة مباركة</span>
+      <span class="badge">🎯 أسعار عادلة</span>
+      <span class="badge">🚚 توصيل أمين</span>
+    </div>
+
+    <div class="contact-buttons">
+      <a href="https://wa.me/201226537451" class="sacred-button whatsapp-btn" target="_blank">
+        <span>📱</span>
+        <span>تواصل واتساب</span>
+      </a>
+      <a href="https://t.me/Abonayousef" class="sacred-button telegram-btn" target="_blank">
+        <span>✈️</span>
+        <span>تواصل تليجرام</span>
+      </a>
+    </div>
+
+    <div class="sacred-map">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3548.418515383244!2d31.34169627614909!3d27.206007047423597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x144573dbcc0f37c1%3A0x1df4dc6815f67d08!2z2K_ZitixINin2YTYp9mG2KjYpyDZh9mK2LHZhdmK2YbYpyDYp9iz2YrZiNi3!5e0!3m2!1sen!2seg!4v1753782143367!5m2!1sen!2seg"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="موقع دير الأنبا هيرمينا">
+      </iframe>
+    </div>
+  </div>
+
+  <footer class="blessing-footer">
+    <p class="blessing-text">
+      "بركة الرب تُغني ولا يزيد معها تعباً"
+      <br>
+      نخدمكم بمحبة وإخلاص من قلب الدير المبارك
+    </p>
+  </footer>
+
+  <script>
+    // إضافة تأثيرات تفاعلية لطيفة
+    document.addEventListener('DOMContentLoaded', function() {
+      const badges = document.querySelectorAll('.badge');
+      badges.forEach((badge, index) => {
+        badge.style.animationDelay = `${1.2 + index * 0.1}s`;
+        badge.style.animation = 'fade-in-up 0.8s ease-out both';
+      });
+
+      // تأثير النقر على الأزرار
+      const buttons = document.querySelectorAll('.sacred-button');
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          const ripple = document.createElement('span');
+          const rect = this.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            left: ${x}px;
+            top: ${y}px;
+            width: 20px;
+            height: 20px;
+            margin-left: -10px;
+            margin-top: -10px;
+            pointer-events: none;
+          `;
+          
+          this.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        });
+      });
+    });
+
+    // إضافة الـ CSS للتأثير المتموج
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
