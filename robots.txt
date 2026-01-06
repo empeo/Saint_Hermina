@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://empeo.github.io/Saint_Hermina/sitemap.xml
