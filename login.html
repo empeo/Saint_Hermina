@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول - لوحة إدارة دير الأنبا هيرمينا</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Cairo", sans-serif;
+        background: linear-gradient(135deg, #f8f6f0 0%, #e8e2d5 100%);
+        color: #4a4037;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow: hidden;
+      }
+
+      .floating-cross {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        font-size: 24px;
+        color: rgba(139, 69, 19, 0.3);
+        z-index: 1;
+        animation: gentle-float 6s ease-in-out infinite;
+      }
+
+      @keyframes gentle-float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sacred-pattern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: linear-gradient(
+          45deg,
+          transparent 30%,
+          rgba(139, 69, 19, 0.05) 50%,
+          transparent 70%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        max-width: 480px;
+        width: 100%;
+        padding: 50px 40px;
+        border-radius: 25px;
+        box-shadow: 0 20px 60px rgba(139, 69, 19, 0.2);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(139, 69, 19, 0.1);
+        animation: fade-in-up 0.8s ease-out;
+        position: relative;
+        z-index: 10;
+      }
+
+      .monastery-logo-small {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 25px;
+        border-radius: 50%;
+        border: 4px solid rgba(139, 69, 19, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(45deg, #8b4513, #a0522d);
+        box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+      }
+
+      .monastery-logo-small::before {
+        content: "✝";
+        font-size: 48px;
+        color: white;
+        font-family: "Amiri", serif;
+      }
+
+      .login-title {
+        font-family: "Amiri", serif;
+        font-size: 2em;
+        font-weight: 700;
+        text-align: center;
+        color: #8b4513;
+        margin-bottom: 10px;
+      }
+
+      .login-subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 35px;
+        font-size: 0.95em;
+        opacity: 0.9;
+      }
+
+      .form-group {
+        margin-bottom: 24px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: #4a4037;
+        font-size: 0.95em;
+      }
+
+      input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 2px solid rgba(139, 69, 19, 0.2);
+        border-radius: 12px;
+        font-size: 16px;
+        font-family: "Cairo", sans-serif;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #8b4513;
+        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        background: white;
+      }
+
+      .login-button {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1em;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        font-family: "Cairo", sans-serif;
+      }
+
+      .login-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+      }
+
+      .login-button:active {
+        transform: translateY(0);
+      }
+
+      .login-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .secondary-button {
+        flex: 1;
+        padding: 12px;
+        background: rgba(139, 69, 19, 0.1);
+        color: #8b4513;
+        border: 2px solid rgba(139, 69, 19, 0.3);
+        border-radius: 12px;
+        font-size: 0.95em;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Cairo", sans-serif;
+      }
+
+      .secondary-button:hover {
+        background: rgba(139, 69, 19, 0.2);
+        border-color: #8b4513;
+      }
+
+      .message {
+        margin-top: 20px;
+        padding: 14px;
+        border-radius: 10px;
+        text-align: center;
+        line-height: 1.6;
+        font-size: 0.95em;
+        display: none;
+      }
+
+      .message.show {
+        display: block;
+        animation: fade-in-up 0.5s ease-out;
+      }
+
+      .message.error {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid rgba(220, 53, 69, 0.3);
+      }
+
+      .message.success {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.3);
+      }
+
+      .message.info {
+        background: rgba(139, 69, 19, 0.1);
+        color: #8b4513;
+        border: 1px solid rgba(139, 69, 19, 0.3);
+      }
+
+      .blessed-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: #8b4513;
+        font-family: "Amiri", serif;
+        font-style: italic;
+        font-size: 0.9em;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 600px) {
+        .login-container {
+          padding: 40px 25px;
+        }
+
+        .login-title {
+          font-size: 1.6em;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <script type="module">
+      import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+      const SUPABASE_URL = "https://dgvzbitxvdstfqgcpesf.supabase.co";
+      const SUPABASE_PUBLISHABLE_KEY =
+        "sb_publishable_BT29-g7pwEWuTsZ5RruVIA_E2K88N34";
+
+      const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+      const $ = (id) => document.getElementById(id);
+
+      function showMessage(text, type = "info") {
+        const msg = $("message");
+        msg.textContent = text;
+        msg.className = `message show ${type}`;
+      }
+
+      function hideMessage() {
+        const msg = $("message");
+        msg.classList.remove("show");
+      }
+
+      // فحص إذا كان المستخدم مسجل دخول بالفعل
+      window.addEventListener("DOMContentLoaded", async () => {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) {
+          showMessage("أنت مسجل دخول بالفعل، جاري التحويل...", "success");
+          setTimeout(() => {
+            location.href = "dashboard.html";
+          }, 1000);
+        }
+      });
+
+      // تسجيل الدخول
+      window.login = async () => {
+        hideMessage();
+
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        const btn = $("loginBtn");
+
+        // التحقق من البيانات
+        if (!email || !password) {
+          showMessage("⚠️ برجاء إدخال البريد الإلكتروني وكلمة المرور", "error");
+          return;
+        }
+
+        // التحقق من صحة البريد الإلكتروني
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showMessage("⚠️ برجاء إدخال بريد إلكتروني صحيح", "error");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "جاري تسجيل الدخول...";
+
+        try {
+          const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+          });
+
+          if (error) {
+            // رسائل خطأ مخصصة بالعربي
+            if (error.message.includes("Invalid login credentials")) {
+              showMessage(
+                "❌ البريد الإلكتروني أو كلمة المرور غير صحيحة",
+                "error",
+              );
+            } else if (error.message.includes("Email not confirmed")) {
+              showMessage("❌ برجاء تأكيد البريد الإلكتروني أولاً", "error");
+            } else {
+              showMessage("❌ " + error.message, "error");
+            }
+            btn.disabled = false;
+            btn.textContent = "دخول";
+            return;
+          }
+
+          showMessage("✅ تم تسجيل الدخول بنجاح، جاري التحويل...", "success");
+
+          setTimeout(() => {
+            location.href = "dashboard.html";
+          }, 1000);
+        } catch (e) {
+          showMessage("❌ حدث خطأ غير متوقع: " + (e?.message || e), "error");
+          btn.disabled = false;
+          btn.textContent = "دخول";
+        }
+      };
+
+      // السماح بالضغط على Enter لتسجيل الدخول
+      window.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          login();
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="floating-cross">✝</div>
+    <div class="sacred-pattern"></div>
+
+    <div class="login-container">
+      <div class="monastery-logo-small"></div>
+
+      <h1 class="login-title">لوحة الإدارة</h1>
+      <p class="login-subtitle">دير الأنبا هيرمينا السائح العامر</p>
+
+      <form
+        onsubmit="
+          event.preventDefault();
+          login();
+        "
+      >
+        <div class="form-group">
+          <label for="email">البريد الإلكتروني</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="admin@monastery.com"
+            autocomplete="email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">كلمة المرور</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+
+        <button type="submit" id="loginBtn" class="login-button">دخول</button>
+      </form>
+
+      <div class="action-buttons">
+        <button class="secondary-button" onclick="location.href = 'index.html'">
+          🏠 العودة للموقع
+        </button>
+      </div>
+
+      <div id="message" class="message"></div>
+
+      <div class="blessed-footer">صلوات القديسين تحفظكم</div>
+    </div>
+  </body>
+</html>
