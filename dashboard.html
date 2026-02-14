@@ -445,6 +445,62 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* Image Modal */
+      .image-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        padding: 20px;
+      }
+
+      .image-modal.show {
+        display: flex;
+      }
+
+      .image-modal img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .image-modal-close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.5em;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .image-modal-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+      }
+
+      .product-item img {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .product-item img:hover {
+        transform: scale(1.05);
+      }
     </style>
 
     <script type="module">
@@ -598,7 +654,7 @@
           div.style.animationDelay = `${index * 0.1}s`;
 
           div.innerHTML = `
-          <img src="${product.image_url}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x200?text=صورة+غير+متاحة'">
+          <img src="${product.image_url}" alt="${product.name}" onclick="openImageModal('${product.image_url}', '${product.name.replace(/'/g, "\\'")}')" onerror="this.src='https://via.placeholder.com/300x200?text=صورة+غير+متاحة'">
           <div class="product-name">${product.name}</div>
           <div class="product-description">${product.description || "لا يوجد وصف"}</div>
           <div class="product-price">${product.retail_price} جنيه</div>
@@ -856,12 +912,51 @@
         location.href = "login.html";
       };
 
+      // فتح نافذة عرض الصورة
+      window.openImageModal = (imageSrc, productName) => {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("imageModalImg");
+
+        modal.classList.add("show");
+        modalImg.src = imageSrc;
+        modalImg.alt = productName;
+        document.body.style.overflow = "hidden";
+      };
+
+      // إغلاق نافذة عرض الصورة
+      window.closeImageModal = () => {
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("show");
+        document.body.style.overflow = "auto";
+      };
+
       // عند تحميل الصفحة
       window.addEventListener("DOMContentLoaded", async () => {
         const session = await requireAuth();
         if (session) {
           await loadProducts();
         }
+
+        // إغلاق نافذة الصورة عند النقر خارجها
+        const imageModal = document.getElementById("imageModal");
+        if (imageModal) {
+          imageModal.addEventListener("click", (e) => {
+            if (e.target === imageModal) {
+              closeImageModal();
+            }
+          });
+        }
+
+        // إغلاق عند الضغط على Escape
+        document.addEventListener("keydown", (e) => {
+          if (
+            e.key === "Escape" &&
+            imageModal &&
+            imageModal.classList.contains("show")
+          ) {
+            closeImageModal();
+          }
+        });
       });
     </script>
   </head>
@@ -993,6 +1088,12 @@
           💾 حفظ التعديلات
         </button>
       </div>
+    </div>
+
+    <!-- نافذة عرض الصور -->
+    <div id="imageModal" class="image-modal">
+      <button class="image-modal-close" onclick="closeImageModal()">×</button>
+      <img id="imageModalImg" alt="صورة المنتج" />
     </div>
   </body>
 </html>

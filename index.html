@@ -380,8 +380,8 @@
 
       .wholesale-badge {
         position: absolute;
-        top: 15px;
-        right: 15px;
+        top: 60px;
+        left: 15px;
         background: linear-gradient(135deg, #ffd700, #ffa500);
         color: white;
         padding: 8px 15px;
@@ -969,16 +969,8 @@
 
           card.innerHTML = `
           <div class="product-image-wrapper">
-            ${
-              product.hasDelivery
-                ? '<div class="delivery-badge">🚚 توصيل متاح</div>'
-                : ""
-            }
-            ${
-              product.hasWholesale
-                ? '<div class="wholesale-badge">🏪 جملة متاح</div>'
-                : ""
-            }
+            <div class="delivery-badge">🚚 توصيل متاح</div>
+            <div class="wholesale-badge">🏪 جملة متاح</div>
             <img src="${product.image}" alt="${
               product.name
             }" class="product-image" loading="lazy" style="cursor: pointer;" onclick="openImageModal('${
@@ -994,17 +986,6 @@
               <span class="price-value">${product.retailPrice} جنيه</span>
             </div>
             
-            ${
-              product.hasWholesale
-                ? `
-              <div class="wholesale-price">
-                <span class="price-label">🏪 سعر الجملة:</span>
-                <span class="price-value" style="font-size: 1.2em;">${product.wholesalePrice} جنيه</span>
-              </div>
-            `
-                : ""
-            }
-            
             <button class="order-button" onclick="window.open('${whatsappLink}', '_blank')">
               <span>📱</span>
               <span>اطلب الآن عبر واتساب</span>
@@ -1017,7 +998,7 @@
       }
 
       // وظائف نافذة الصورة
-      function openImageModal(imageSrc, productName) {
+      window.openImageModal = function (imageSrc, productName) {
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("imageModalImg");
 
@@ -1025,13 +1006,13 @@
         modalImg.src = imageSrc;
         modalImg.alt = productName;
         document.body.style.overflow = "hidden";
-      }
+      };
 
-      function closeImageModal() {
+      window.closeImageModal = function () {
         const modal = document.getElementById("imageModal");
         modal.classList.remove("show");
         document.body.style.overflow = "auto";
-      }
+      };
 
       document.addEventListener("DOMContentLoaded", async function () {
         // تحميل المنتجات من Supabase أولاً
@@ -1043,21 +1024,21 @@
         // إغلاق النافذة عند النقر على زر X
         document
           .getElementById("imageModalClose")
-          .addEventListener("click", closeImageModal);
+          .addEventListener("click", window.closeImageModal);
 
         // إغلاق النافذة عند النقر خارج الصورة
         document
           .getElementById("imageModal")
           .addEventListener("click", function (e) {
             if (e.target === this) {
-              closeImageModal();
+              window.closeImageModal();
             }
           });
 
         // إغلاق النافذة عند الضغط على Escape
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape") {
-            closeImageModal();
+            window.closeImageModal();
           }
         });
 
